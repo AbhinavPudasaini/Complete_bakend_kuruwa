@@ -1,0 +1,358 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap'); */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css");
+
+
+:root {
+    --nav-color: #C7C8CD;
+    --font_color: #212121;
+    /* --font-family: "Roboto", sans-serif; */
+    font-family: 'Segoe UI', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    /* font-family: "Roboto", sans-serif; */
+    font-family: 'Segoe UI', sans-serif;
+
+
+}
+
+.navigator {
+    /* background-color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0; */
+    background-color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+
+
+.header {
+
+    font-style: normal;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 400px;
+    font-size: 25px;
+    background-color: aqua;
+    /* box-shadow: 5px 5px 5px gray */
+
+
+}
+
+.nav_left_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo img {
+    width: 50px;
+}
+
+.kuruwa_logo_text {
+    font-weight: bold;
+    font-size: 20px;
+
+}
+
+.nav_middle_section .link:hover {
+
+    color: blue
+}
+
+.nav_middle_section {
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding-right: 50px;
+}
+
+.nav_middle_section .link:hover {
+
+    color: blue
+}
+
+.button_detail {
+    background-color: blue;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+
+
+}
+
+.Booking {
+    color: white;
+    text-decoration: none;
+}
+
+.main_section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.first_text {
+    font-weight: bold;
+}
+
+.heading {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header_image img {
+    width: 500px;
+}
+
+.logo_texts {
+
+    font-size: 24px;
+    font-weight: bold;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.button_one {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.button_two {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.how_it_works {
+    font-weight: bold;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.mid_image img {
+    width: 50px;
+    display: flex;
+
+}
+
+.mid_text {
+    font-size: 18px;
+    text-align: center;
+
+}
+
+.mid_manage {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    align-content: center;
+
+    max-width: 1200px;
+    width: 90%;
+    margin: 10px auto;
+
+}
+
+.works {
+    margin: 0px auto;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.paragraph {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.mid_image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.About_kuruwa {
+    margin: 15px auto;
+    max-width: 1200px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+
+}
+
+.definition {
+    margin-top: 10px;
+
+}
+
+.new_para {
+    margin-top: 38px;
+
+}
+
+.main_footer {
+    background-color: rgb(173, 227, 246);
+    color: #cbd5e1;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: auto 0px;
+    padding: 0 20px;
+}
+
+
+.links {
+    /* margin-top: 5px; */
+    color: black;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 300px;
+    margin-left: 50px;
+
+}
+
+.linking {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+
+}
+
+.footer_fonts {
+    display: flex;
+    justify-content: right;
+    gap: 20px;
+
+    margin-right: 100px;
+}
+
+.Face {
+    color: black;
+    display: flex;
+
+}
+@media screen and (max-width: 1024px) {
+    .main_section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header_image img {
+        width: 400px;
+    }
+
+    .About_kuruwa {
+        gap: 30px;
+    }
+
+    .nav_middle_section {
+        gap: 30px;
+        padding-right: 30px;
+    }
+}
+
+/* Mobile Responsive Design */
+@media screen and (max-width: 768px) {
+    .navigator {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav_middle_section {
+        flex-direction: column;
+        gap: 15px;
+        padding-right: 0;
+        width: 100%;
+    }
+
+    .header_image img {
+        width: 300px;
+    }
+
+    .mid_manage {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .About_kuruwa {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer_fonts {
+        justify-content: center;
+        margin-right: 0;
+    }
+
+    .links {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+        margin: 15px 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navigator {
+        padding: 10px;
+    }
+
+    .header {
+        font-size: 20px;
+    }
+
+    .header_image img {
+        width: 250px;
+    }
+
+    .nav_middle_section {
+        font-size: 15px;
+    }
+
+    .button_detail {
+        padding: 8px 15px;
+    }
+
+    .footer-content {
+        padding: 0 10px;
+    }
+
+    .linking {
+        font-size: 14px;
+    }
+}

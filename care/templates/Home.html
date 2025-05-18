@@ -1,0 +1,421 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - Kuruwa</title>
+<link rel="stylesheet" href="{% static 'css/Home.css' %}">
+  <link rel="stylesheet" href="style/common.css" />
+</head>
+<body>
+
+
+<style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            position: relative;
+            
+            
+        }
+
+        .nav_left_section a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: blue;
+            text-decoration: none;
+           
+        }
+        .message-container {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.alert {
+    padding: 12px 20px;
+    border-radius: 5px;
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    animation: fadeOut 4s forwards;
+}
+
+.alert.success {
+    background-color: #28a745;
+}
+
+.alert.error {
+    background-color: #dc3545;
+}
+
+.alert.info {
+    background-color: #007bff;
+}
+
+@keyframes fadeOut {
+    0%   { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+}
+
+.dropdown-arrow {
+    font-size: 12px;
+    margin-left: 5px;
+    color: #333;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f0f0f0;
+}
+
+
+        /* Hamburger */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 2px;
+        }
+
+        /* Mobile Dropdown */
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 1rem;
+            top: 3.5rem;
+            width: 160px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            flex-direction: column;
+            z-index: 50;
+        }
+
+        .dropdown a {
+            padding: 0.75rem 1rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Desktop Menu */
+        .menu-desktop {
+            display: none;
+            gap: 1.5rem;
+        }
+
+        .menu-desktop a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .menu-desktop a:hover {
+            color: #3b82f6;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hamburger-wrapper {
+                display: none;
+            }
+
+            .menu-desktop {
+                display: flex;
+            }
+        }
+    </style>
+    {% if messages %}
+  <div class="message-container">
+    {% for message in messages %}
+      <div class="alert {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<header>
+    <nav>
+        <div class="nav_left_section">
+            <a href="/">Kuruwa</a>
+        </div>
+
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger-wrapper">
+            <div class="hamburger" id="hamburger-btn">
+                <span></span><span></span><span></span>
+            </div>
+
+            <div class="dropdown" id="mobile-menu">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'price' %}">Pricing</a>
+                <a href="{% url 'contact' %}">Contact Us</a>
+
+                {% if request.user.is_authenticated %}
+                    {% if request.user.caretaker %}
+                        <a href="{% url 'notifications' %}">Notifications</a>
+                    {% endif %}
+                    <a href="{% url 'profile_update' %}">Profile</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="menu-desktop">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'price' %}">Pricing</a>
+            <a href="{% url 'contact' %}">Contact Us</a>
+
+           {% if request.user.is_authenticated %}
+    {% if request.user.caretaker %}
+        <a href="{% url 'notifications' %}">Notifications</a>
+    {% endif %}
+
+<div class="profile-dropdown" id="profileDropdown">
+    <div class="profile-toggle" id="dropdownToggle">
+        <img src="{% static 'images/default-avatar.png' %}" alt="Profile" class="avatar-circle">
+        <span class="dropdown-arrow">&#9662;</span>
+    </div>
+    <div class="dropdown-content" id="dropdownMenu">
+        <a href="{% url 'profile_update' %}">Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+
+
+
+{% else %}
+    <a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+    </nav>
+</header>
+
+
+
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        hamburgerBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!hamburgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.getElementById('dropdownToggle');
+        const menu = document.getElementById('dropdownMenu');
+
+        document.addEventListener('click', function (e) {
+            const clickedInside = toggle.contains(e.target) || menu.contains(e.target);
+            if (clickedInside) {
+                menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+            } else {
+                menu.style.display = 'none';
+            }
+        });
+    });
+
+     setTimeout(() => {
+    const messages = document.querySelectorAll('.message-container .alert');
+    messages.forEach(msg => {
+      msg.style.transition = 'opacity 0.5s ease';
+      msg.style.opacity = '0';
+      setTimeout(() => msg.remove(), 500);
+    });
+  }, 2000); // 2000ms = 2 seconds
+    </script>
+
+<main class="main_section">
+    <div class="heading">
+        <div class="first_text">
+            <div>
+                <h1> Book a Caregiver, Anytime you need</h1>
+            </div>
+        </div>
+        <div class="second_text">
+            <div>
+                Get professional support for your loved ones in hospitals - quick, sage and eassy.
+            </div>
+        </div>
+        <div class="two_buttons gap-1 flex">
+            <button class="button_one">
+               <a href="{% url 'browse' %}" class="button_one">Browse Caregiver</a> 
+            </button>
+            <button class="button_two">
+                <a href="book.html" class="button_two">Book Now</a>   
+            </button>
+        </div>
+    </div>
+
+    <div class="header_image">
+        <!-- <img src="static/image/nurse.avif" class="phoyo" alt="women with Nurse" srcset=""/> -->
+        <img src="{% static 'images/nurse.avif' %}" alt="Example Image">
+
+    </div>
+</main>
+<section class="works">
+    <div>
+        <h1 class="how_it_works">How it Works</h1>
+    </div>
+    <section class="mid_manage">
+        <div class="mid_image">
+            <!-- <img src="static/image/Screenshot 2025-04-15 130512.png" alt="user_image" srcset=""/> -->
+            <img src="{% static 'images/Screenshot 2025-04-15 130512.png' %}" alt="Example2 Image">
+
+            <h4 class="mid_text">Choose a Caregiver</h4>
+            <p class="paragraph"> Explore available caregivers ready for hire</p>
+        </div>
+
+        <div class="mid_image">
+            <!-- <img src="static/image/Screenshot 2025-04-15 131317.png" alt="date_time" srcset=""/> -->
+            <img src="{% static 'images/Screenshot 2025-04-15 131317.png' %}" alt="Example2 Image">
+            <h4 class="mid_text">Select Date &amp; Time</h4>
+            <p class="paragraph"> Select based on hourly rates and availability</p>
+        </div>
+
+        <div class="mid_image">
+            <!-- <img src="static/image/Screenshot 2025-04-15 131620.png" alt="Confir_booking" srcset=""/> -->
+            <img src="{% static 'images/Screenshot 2025-04-15 131620.png' %}" alt="Example3 Image">
+
+            <h4 class="mid_text">Confirm Booking</h4>
+            <p class="paragraph">Securely confirm a your caregiver rental</p>
+        </div>
+
+        <div class="mid_image">
+            <!-- <img src="static/image/Screenshot 2025-04-15 131836.png" alt="peace"/> -->
+            <img src="{% static 'images/Screenshot 2025-04-15 131836.png' %}" alt="Example3 Image">
+
+            <h4 class="mid_text">Peace of Mind!</h4>
+            <p class="paragraph">The caregiver attends to the patients needs</p>
+        </div>
+    </section>
+</section>
+<section class="About_kuruwa">
+    <div class="definition">
+        <h3>Why Kuruwa?</h3>
+        <p>Kuruwa introduces a unique, rental-based-bised caregiving martel tailered specifically for hospital
+            envi-tranments. Unlike traditional fithems care services, our on demand purjfrom allowa eral time
+            caregiver bookings providing flexability eande-ibe-iltedrate-need. We combine convenience,
+            affortiability, and structured caregiving under professssional hospital&nbsp;guidance..</p>
+    </div>
+    <div class="new_para">
+        <p>kuruwa made finding a caregiver for my father so simple and stress-free, The entire process was seamless
+            and the caregiver was fantastic. <br/>
+            "Ram Thapa"
+        </p>
+    </div>
+</section>
+
+  <footer class="main_footer">
+       
+    <div class="footer-content">
+        <div class="links">
+            <a href="About.html" class="linking">About</a>
+            <a href="Contact_Us.html" class="linking">Contact</a>
+            <a href="Privacy_Policy.html"class="linking">Privacy Policy</a>
+            <a href="Terms.html" class="linking">Terms</a>
+        </div>
+    </div>
+
+    <div class="footer_fonts">
+        <div class="Face">
+        <i class="fa-brands fa-facebook"></i>
+        </div>
+        <div class="Face">
+            <i class="fa-brands fa-instagram"></i>
+        </div>
+        <div class="Face">
+         <i class="fa-brands fa-twitter"></i>
+        </div>
+        <div class="Face">
+            <i class="fa-brands fa-linkedin"></i>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
+
+  

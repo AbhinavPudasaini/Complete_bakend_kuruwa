@@ -1,0 +1,218 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - Kuruwa</title>
+  <link rel="stylesheet" href="{% static 'css/About.css' %}">
+
+  <link rel="stylesheet" href="style/common.css" />
+</head>
+<body>
+<style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            position: relative;
+            
+            
+        }
+
+        .nav_left_section a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: blue;
+            text-decoration: none;
+           
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 2px;
+        }
+
+        /* Mobile Dropdown */
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 1rem;
+            top: 3.5rem;
+            width: 160px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            flex-direction: column;
+            z-index: 50;
+        }
+
+        .dropdown a {
+            padding: 0.75rem 1rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Desktop Menu */
+        .menu-desktop {
+            display: none;
+            gap: 1.5rem;
+        }
+
+        .menu-desktop a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .menu-desktop a:hover {
+            color: #3b82f6;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hamburger-wrapper {
+                display: none;
+            }
+
+            .menu-desktop {
+                display: flex;
+            }
+        }
+    </style>
+
+
+    <header>
+        <nav>
+            <div class="nav_left_section">
+                <a href="Home.html">Kuruwa</a>
+            </div>
+
+            <!-- Hamburger and Dropdown -->
+            <div class="hamburger-wrapper">
+                <div class="hamburger" id="hamburger-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="dropdown" id="mobile-menu">
+                    <a href="Home.html">Home</a>
+                    <a href="Pricing.html">Pricing</a>
+                    <a href="Contact_Us.html">Contact Us</a>
+                    <a href="login.html">Login</a>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="menu-desktop">
+                <a href="Home.html">Home</a>
+                    <a href="Pricing.html">Pricing</a>
+                    <a href="Contact_Us.html">Contact Us</a>
+                    <a href="login.html">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        hamburgerBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!hamburgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.style.display = 'none';
+            }
+        });
+    </script>
+
+
+
+  <section class="hero">
+    <h1>About Kuruwa</h1>
+    <p>Your trusted platform for temporary hospital caregivers</p>
+  </section>
+
+  <section class="about-content">
+    <div class="container">
+      <h2>Who We Are</h2>
+      <p>
+        Kuruwa introduces a unique rental-based caregiving model tailored specifically for hospital environments. Unlike traditional home care services, this on-demand, time-flexible platform allows real-time caregiver bookings based on immediate needs.
+      </p>
+
+      <h2>Our Mission</h2>
+      <p>
+        Our mission is to ensure every patient has access to reliable and certified support while their loved ones are away — all under professional supervision and within hospital guidelines.
+      </p>
+
+      <h2>Why Choose Us?</h2>
+      <ul>
+        <li>Real-time caregiver availability</li>
+        <li>Certified professionals only</li>
+        <li>Flexible hourly rates</li>
+        <li>Hospital-guided caregiving support</li>
+      </ul>
+    </div>
+  </section>
+  <footer class="main_footer">
+       
+    <div class="footer-content">
+        <div class="links">
+            <a href="About.html" class="linking">About</a>
+            <a href="Contact_Us.html" class="linking">Contact</a>
+            <a href="Privacy_Policy.html"class="linking">Privacy Policy</a>
+            <a href="Terms.html" class="linking">Terms</a>
+        </div>
+    </div>
+
+    <div class="footer_fonts">
+        <div class="Face">
+        <i class="fa-brands fa-facebook"></i>
+        </div>
+        <div class="Face">
+            <i class="fa-brands fa-instagram"></i>
+        </div>
+        <div class="Face">
+         <i class="fa-brands fa-twitter"></i>
+        </div>
+        <div class="Face">
+            <i class="fa-brands fa-linkedin"></i>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

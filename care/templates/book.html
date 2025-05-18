@@ -1,0 +1,430 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - Kuruwa</title>
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
+  <link rel="stylesheet" href="style/common.css" />
+  </head>
+<body>
+<style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            position: relative;
+            
+            
+        }
+
+        .nav_left_section a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: blue;
+            text-decoration: none;
+           
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 2px;
+        }
+
+        /* Mobile Dropdown */
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 1rem;
+            top: 3.5rem;
+            width: 160px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            flex-direction: column;
+            z-index: 50;
+        }
+
+        .dropdown a {
+            padding: 0.75rem 1rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Desktop Menu */
+        .menu-desktop {
+            display: none;
+            gap: 1.5rem;
+        }
+
+        .menu-desktop a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .menu-desktop a:hover {
+            color: #3b82f6;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hamburger-wrapper {
+                display: none;
+            }
+
+            .menu-desktop {
+                display: flex;
+            }
+        }
+      .message-container {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.alert {
+    padding: 12px 20px;
+    border-radius: 5px;
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    animation: fadeOut 4s forwards;
+}
+    </style>
+{% if messages %}
+  <div class="message-container">
+    {% for message in messages %}
+      <div class="alert {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+    <header>
+        <nav>
+            <div class="nav_left_section">
+                <a href="Home.html">Kuruwa</a>
+            </div>
+
+            <!-- Hamburger and Dropdown -->
+            <div class="hamburger-wrapper">
+                <div class="hamburger" id="hamburger-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="dropdown" id="mobile-menu">
+                    <a href="Home.html">Home</a>
+                    <a href="Pricing.html">Pricing</a>
+                    <a href="Contact_Us.html">Contact Us</a>
+                    <a href="login.html">Login</a>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="menu-desktop">
+                <a href="Home.html">Home</a>
+                    <a href="Pricing.html">Pricing</a>
+                    <a href="Contact_Us.html">Contact Us</a>
+                    <a href="login.html">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+    const isLoggedIn = false; // Change to true after user logs in
+
+    const mobileMenu = document.getElementById('mobile-menu');
+    const desktopMenu = document.querySelector('.menu-desktop');
+
+    // ----------- Mobile Avatar Logic -----------
+    if (isLoggedIn) {
+        const mobileProfileHTML = `
+            <div class="mobile-avatar-wrapper">
+                <img src="static/image/profile.jpg" alt="User Profile" id="mobile-avatar-btn">
+                <div class="avatar-dropdown" id="mobile-avatar-dropdown">
+                    <a href="profile.html">My Profile</a>
+                    <a href="settings.html">Settings</a>
+                    <a href="logout.html">Logout</a>
+                </div>
+            </div>
+        `;
+        mobileMenu.insertAdjacentHTML('afterbegin', mobileProfileHTML);
+
+        const mobileAvatarBtn = document.getElementById('mobile-avatar-btn');
+        const mobileAvatarDropdown = document.getElementById('mobile-avatar-dropdown');
+
+        mobileAvatarBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            mobileAvatarDropdown.style.display = mobileAvatarDropdown.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!mobileAvatarBtn.contains(e.target)) {
+                mobileAvatarDropdown.style.display = 'none';
+            }
+        });
+    }
+
+    // ----------- Desktop Avatar Logic -----------
+    if (isLoggedIn) {
+        desktopMenu.innerHTML = `
+            <div class="desktop-avatar-wrapper">
+                <img src="static/image/profile.jpg" alt="User Profile" id="desktop-avatar-btn">
+                <div class="avatar-dropdown" id="desktop-avatar-dropdown">
+                    <a href="profile.html">My Profile</a>
+                    <a href="settings.html">Settings</a>
+                    <a href="logout.html">Logout</a>
+                </div>
+            </div>
+        `;
+    } else {
+        desktopMenu.innerHTML = `
+            <a href="Home.html">Home</a>
+            <a href="Pricing.html">Pricing</a>
+            <a href="Contact_Us.html">Contact Us</a>
+            <a href="login.html">Login</a>
+        `;
+    }
+
+    if (isLoggedIn) {
+        const desktopAvatarBtn = document.getElementById('desktop-avatar-btn');
+        const desktopAvatarDropdown = document.getElementById('desktop-avatar-dropdown');
+
+        desktopAvatarBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            desktopAvatarDropdown.style.display = desktopAvatarDropdown.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!desktopAvatarBtn.contains(e.target)) {
+                desktopAvatarDropdown.style.display = 'none';
+            }
+        });
+    }
+
+    // ----------- Hamburger Menu Toggle -----------
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+
+    hamburgerBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!hamburgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+            mobileMenu.style.display = 'none';
+        }
+    });
+
+</script>
+
+<main>
+<div class="Muted" style="margin: auto 100px;">
+  <h1>Book a Caregiver</h1>
+  <h3>Schedule trusted care for your loved one in just a few clicks.</h3>
+</div>
+
+<div class="Muted" style="margin: auto 100px;">
+  <form method="POST">
+    {% csrf_token %}
+    {% if messages %}
+      <div class="message-container">
+        {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input name = "full_name" type="text" id="name" placeholder="Enter your full name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input name = "phone_number" type="tel" id="phone" placeholder="Enter your phone number" required />
+    </div>
+
+    <div class="form-group">
+      <label for="location">Hospital/Location</label>
+      <input name = "location" type="text" id="location" placeholder="Where is care needed?" />
+    </div>
+
+    <div class="form-group">
+      <label for="date">Booking Date</label>
+      <input name ="book_date" type="date" id="date" required />
+    </div>
+
+    <div class="form-group">
+      <label for="time">Booking Time</label>
+      <input name = "time" type="time" id="time" required />
+    </div>
+    <div class="form-group">
+      <label for="duration">Booking Duration (in hours)</label>
+      <input name = "duration" type="number" id="duration" placeholder="How many hours do you need care?" min="1" required />
+    </div>
+
+     <div class="form-group">
+    <label for="instructions">Additional Information (optional)</label>
+    <textarea name = "desc" id="instructions" rows="3" placeholder="Any special notes or instructions?"></textarea>
+  </div>
+
+    <button class="btn" type="submit" style="margin-bottom:15px;">Book Now</button>
+  </form>
+</div>
+<!-- Booking Confirmation Modal -->
+<!-- <div id="booking-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:999;">
+  <div style="background:white; padding:20px 30px; border-radius:12px; text-align:center; max-width:400px; width:90%;">
+    <h2>Confirm Booking</h2>
+    <p id="modal-message">Are you sure you want to book X hour(s)?</p>
+    <div style="margin-top:20px; display:flex; justify-content:space-around;">
+      <button id="confirm-btn" style="padding:10px 20px; background:#2563eb; color:white; border:none; border-radius:8px; cursor:pointer;">Confirm</button>
+      <button id="cancel-btn" style="padding:10px 20px; background:#e5e7eb; color:#1e293b; border:none; border-radius:8px; cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div> -->
+
+<!-- <script>
+  const bookingForm = document.querySelector('form');
+  const durationInput = document.getElementById('duration');
+  const bookingModal = document.getElementById('booking-modal');
+  const modalMessage = document.getElementById('modal-message');
+  const confirmBtn = document.getElementById('confirm-btn');
+  const cancelBtn = document.getElementById('cancel-btn');
+
+  bookingForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const duration = durationInput.value.trim();
+
+    if (!duration || duration <= 0) {
+      alert('Please enter a valid booking duration.');
+      return;
+    }
+
+    modalMessage.textContent = `Are you sure you want to book ${duration} hour(s)?`;
+    bookingModal.style.display = 'flex';
+  });
+
+  confirmBtn.addEventListener('click', function () {
+    bookingModal.style.display = 'none';
+    alert('Booking confirmed! Thank you.');
+    bookingForm.submit(); // Optional: simulate form submission
+  });
+
+  cancelBtn.addEventListener('click', function () {
+    bookingModal.style.display = 'none';
+  });
+
+  // Close modal on outside click
+  bookingModal.addEventListener('click', function (e) {
+    if (e.target === bookingModal) {
+      bookingModal.style.display = 'none';
+    }
+  });
+</script>
+<script>
+  const bell = document.getElementById('notification-bell');
+  const notificationBox = document.getElementById('notification-box');
+  const notificationBadge = document.getElementById('notification-badge');
+  const notificationList = document.getElementById('notification-list');
+
+  bell.addEventListener('click', () => {
+    notificationBox.style.display = notificationBox.style.display === 'block' ? 'none' : 'block';
+    notificationBadge.style.display = 'none';
+  });
+
+  function addNotification(message) {
+    const notificationItem = document.createElement('div');
+    notificationItem.style.padding = '10px';
+    notificationItem.style.borderBottom = '1px solid #e5e5e5';
+    notificationItem.textContent = message;
+    notificationList.prepend(notificationItem);
+
+    notificationBadge.textContent = parseInt(notificationBadge.textContent || '0') + 1;
+    notificationBadge.style.display = 'inline';
+  }
+  addNotification(`Booking confirmed for ${durationInput.value} hour(s) on ${document.getElementById('date').value} at ${document.getElementById('time').value}`);
+confirmBtn.addEventListener('click', function () {
+  bookingModal.style.display = 'none';
+  addNotification(`Booking confirmed for ${durationInput.value} hour(s) on ${document.getElementById('date').value} at ${document.getElementById('time').value}`);
+  alert('Booking confirmed! Thank you.');
+});
+
+</script> -->
+
+</div>
+</div>
+
+
+
+
+    
+</main>
+
+
+<footer class="main_footer">
+       
+    <div class="footer-content">
+        <div class="links">
+            <a href="About.html" class="linking">About</a>
+            <a href="Contact_Us.html" class="linking">Contact</a>
+            <a href="Privacy_Policy.html"class="linking">Privacy Policy</a>
+            <a href="Terms.html" class="linking">Terms</a>
+        </div>
+    </div>
+
+    <div class="footer_fonts">
+        <div class="Face">
+        <i class="fa-brands fa-facebook"></i>
+        </div>
+        <div class="Face">
+            <i class="fa-brands fa-instagram"></i>
+        </div>
+        <div class="Face">
+         <i class="fa-brands fa-twitter"></i>
+        </div>
+        <div class="Face">
+            <i class="fa-brands fa-linkedin"></i>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>

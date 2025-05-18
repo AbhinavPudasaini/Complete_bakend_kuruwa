@@ -1,0 +1,271 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/browse_caregiver.css' %}">
+    <link rel="stylesheet" href="style/common.css">
+    <title>Document</title>
+</head>
+<body>
+<style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            position: relative;
+            
+            
+        }
+
+        .nav_left_section a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: blue;
+            text-decoration: none;
+           
+        }
+
+        .caregiver-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* space between cards */
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.caregiver-list .card {
+    flex: 0 1 calc(25% - 20px); /* 4 cards per row with gap compensation */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 16px;
+    box-sizing: border-box;
+    background-color: #fff;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .caregiver-list .card {
+        flex: 0 1 calc(50% - 20px); /* 2 per row on tablets */
+    }
+}
+
+@media (max-width: 600px) {
+    .caregiver-list .card {
+        flex: 0 1 100%; /* full width on small screens */
+    }
+}
+
+.caregiver-list .card img {
+    width: 80%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+        /* Hamburger */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 2px;
+        }
+
+        /* Mobile Dropdown */
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 1rem;
+            top: 3.5rem;
+            width: 160px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            flex-direction: column;
+            z-index: 50;
+        }
+
+        .dropdown a {
+            padding: 0.75rem 1rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Desktop Menu */
+        .menu-desktop {
+            display: none;
+            gap: 1.5rem;
+        }
+
+        .menu-desktop a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .menu-desktop a:hover {
+            color: #3b82f6;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hamburger-wrapper {
+                display: none;
+            }
+
+            .menu-desktop {
+                display: flex;
+            }
+        }
+    </style>
+
+
+    <header>
+        <nav>
+            <div class="nav_left_section">
+                <a href="/">Kuruwa</a>
+            </div>
+
+            <!-- Hamburger and Dropdown -->
+            <div class="hamburger-wrapper">
+                <div class="hamburger" id="hamburger-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="dropdown" id="mobile-menu">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'price' %}">Pricing</a>
+                    <a href="{% url 'contact' %}">Contact Us</a>
+                    <a href="{% url 'login' %}">Login</a>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="menu-desktop">
+                <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'price' %}">Pricing</a>
+                    <a href="{% url 'contact' %}">Contact Us</a>
+                    <a href="{% url 'login' %}">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        hamburgerBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!hamburgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.style.display = 'none';
+            }
+        });
+    </script>
+      
+          <main>
+              <h1>Browse Caregiver</h1>
+              <div class="search-bar">
+                  <input type="text" placeholder="Search caregiver name, skills, or specialization...">
+                  <div class="filters">
+                      <button>Location</button>
+                      <button>Availability</button>
+                      <button>Gender</button>
+                      <button>Experience</button>
+                      <button>Specialization</button>
+                      <button>Language</button>
+                  </div>
+              </div>
+      
+              
+    <div class="caregiver-list">
+        {% for caretaker in caretakers %}
+        <div class="card">
+            <img src="{{ caretaker.image.url }}" alt="{{ caretaker.full_names }}">
+            <h2>{{ caretaker.full_names }}</h2>
+            <!-- <div class="rating">★★★★★ ({{ caretaker.rating_count|default:"0" }})</div> -->
+            <p>{{ caretaker.experiences }} years of Experience.</p>
+            <div class="location">{{ caretaker.location }}</div>
+            <div class="price">Rs.{{ caretaker.rate }} /hour</div>
+            <div class="availability">
+                {% if caretaker.availability %}
+                    ✅ Available now
+                    
+                {% else %}
+                    ❌ Not available
+                    
+                {% endif %}
+            </div>
+            <div class="buttons">
+                <button class="view">View Profile</button>
+               <button class="book">
+                    <a href="{% url 'book' caretaker.id %}" class="button_two" style="text-decoration: none; color: white;">Book Now</a>
+            </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+     
+ <footer class="main_footer">
+       
+    <div class="footer-content">
+        <div class="links">
+            <a href="About.html" class="linking">About</a>
+            <a href="Contact_Us.html" class="linking">Contact</a>
+            <a href="Privacy_Policy.html"class="linking">Privacy Policy</a>
+            <a href="Terms.html" class="linking">Terms</a>
+        </div>
+    </div>
+
+    <div class="footer_fonts">
+        <div class="Face">
+        <i class="fa-brands fa-facebook"></i>
+        </div>
+        <div class="Face">
+            <i class="fa-brands fa-instagram"></i>
+        </div>
+        <div class="Face">
+         <i class="fa-brands fa-twitter"></i>
+        </div>
+        <div class="Face">
+            <i class="fa-brands fa-linkedin"></i>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f4f4f4;
+        }
+        .booking-card {
+            background-color: #fff;
+            border-left: 6px solid #2196F3;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .booking-card.accepted { border-left-color: #4CAF50; }
+        .booking-card.declined { border-left-color: #f44336; }
+
+        .booking-card p {
+            margin: 5px 0;
+        }
+
+        .booking-card form {
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[name="response"][value="Accept"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button[name="response"][value="Decline"] {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>📬 Booking Requests</h2>
+
+    {% for booking in bookings %}
+  <div class="booking-card">
+    <p>Patient: {{ booking.patient_full_name }}</p>
+    <p>Location: {{ booking.patient_location }}</p>
+    <p>Requested at: {{ booking.requested_at }}</p>
+
+    <form method="POST" action="{% url 'respond_booking' booking.id %}">
+        {% csrf_token %}
+        <button name="response" value="Accept">✅ Accept</button>
+        <button name="response" value="Decline">❌ Decline</button>
+    </form>
+  </div>
+{% endfor %}
+
+</body>
+</html>
